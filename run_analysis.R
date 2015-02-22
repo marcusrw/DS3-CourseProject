@@ -1,4 +1,4 @@
-
+################ Function Declarations - Main Script Body Below ################
 
 #Downloads and unzips the zipped data file, if it's not already there
 downloadAndUnzipData <- function(fileURL,zipFilePath,unzippedFolderName) {
@@ -33,12 +33,14 @@ readDataFileIntoTable <- function(fileName,columnNames) {
     return(dataTable)
 }
 
-# Set the working directory to the location of this script
+############################ Begin main class body ############################
+
+## Set the working directory to the location of this script
 this.directory <- dirname(parent.frame(2)$ofile)
 setwd(this.directory)
 rm(this.directory)
 
-## Download the data from fileURL and save it as fileName
+## Download the data from fileURL, save the zipfile, and unzip it
 fileURL = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 zipFilePath = "getdata_projectfiles_UCI HAR Dataset.zip"
 unzippedFolderName = "UCI HAR Dataset"
@@ -54,69 +56,62 @@ changeDirectory("UCI HAR Dataset")
 features = read.table("features.txt",stringsAsFactors = FALSE)
 features = features[,2]
 
-
 library(dplyr)
 
-## read in the X_test.txt dataset if we don't have it already
-if (!exists("testData")){
-    print("Reading test Dataset")
+## read in the X_test.txt dataset and its friends
+print("Reading test Dataset")
 
-    ## Move into the test folder
-    changeDirectory("test")
+## Move into the test folder
+changeDirectory("test")
 
-    ## Read in the data, activity labels, and subject numbers
-    testData = readDataFileIntoTable("X_test.txt",features)
-    testLabels = readDataFileIntoTable("y_test.txt","ActivityNumber")
-    testSubjects = readDataFileIntoTable("subject_test.txt","Subject")
+## Read in the data, activity labels, and subject numbers
+testData = readDataFileIntoTable("X_test.txt",features)
+testLabels = readDataFileIntoTable("y_test.txt","ActivityNumber")
+testSubjects = readDataFileIntoTable("subject_test.txt","Subject")
 
-    ## Move back to the previous directory
-    changeDirectory("..")
+## Move back to the previous directory
+changeDirectory("..")
+
+
+## read in the X_train.txt dataset and its friends
+print("Reading training Dataset")
+
+## Move into the train folder
+changeDirectory("train")
+
+## Read in the data, activity labels, and subject numbers
+trainData = readDataFileIntoTable("X_train.txt",features)
+trainLabels = readDataFileIntoTable("y_train.txt","ActivityNumber")
+trainSubjects = readDataFileIntoTable("subject_train.txt","Subject")
+
+## Move back to the previous directory
+changeDirectory("..")
+
+## Deal with duplicate labels.
+## There are some columns of the dataset that have the same title, which can
+## conflict with the tools in dplyr.  However, we're not going to use any of
+## these so we can just throw them out.
+
+## You can verify this by noting the following commands return nothing
+## check if any of the duplicated features contains the strings mean,std or sd
+## grep("mean",features[duplicated(features)])
+## grep("std",features[duplicated(features)])
+## grep("sd",features[duplicated(features)])
+
+## Remove the dupicated column names, and the associated data if they exist
+if (!(all(features == features[!duplicated(features)]))) {
+    trainData = trainData[,!duplicated(features)]
+    testData = testData[,!duplicated(features)]
+    features = features[!duplicated(features)]
 }
 
-## read in the X_train.txt dataset if we don't have it already
-if (!exists("trainData")){
-    print("Reading training Dataset")
+## Now we can combine the three parts of the test and training datasets, and
+## combine them to make one large dataset
+testDataComplete = cbind(testSubjects,testLabels,testData)
+trainDataComplete = cbind(trainSubjects,trainLabels,trainData)
+mergedData = rbind(testDataComplete,trainDataComplete)
+mergedData = tbl_df(mergedData)
 
-    ## Move into the train folder
-    changeDirectory("train")
-
-    ## Read in the data, activity labels, and subject numbers
-    trainData = readDataFileIntoTable("X_train.txt",features)
-    trainLabels = readDataFileIntoTable("y_train.txt","ActivityNumber")
-    trainSubjects = readDataFileIntoTable("subject_train.txt","Subject")
-
-    ## Move back to the previous directory
-    changeDirectory("..")
-}
-
-## Skip this step if we already have the mergedData dataset
-if (!exists("mergedData")) {
-
-    ## Deal with duplicate labels.
-    ## There are some columns of the dataset that have the same title, which can
-    ## conflict with the tools in dplyr.  However, we're not going to use any of
-    ## these so we can just throw them out.
-
-    ## You can verify this by noting the following commands return nothing
-    ## check if any of the duplicated features contains the strings mean,std or sd
-    ## grep("mean",features[duplicated(features)])
-    ## grep("std",features[duplicated(features)])
-    ## grep("sd",features[duplicated(features)])
-
-    ## Remove the dupicated column names, and the associated data if they exist
-    if (!(all(features == features[!duplicated(features)]))) {
-        trainData = trainData[,!duplicated(features)]
-        testData = testData[,!duplicated(features)]
-        features = features[!duplicated(features)]
-    }
-
-    ## Now we can combine the three parts of the test and training datasets, and
-    ## combine them to make one large dataset
-    testDataComplete = cbind(testSubjects,testLabels,testData)
-    trainDataComplete = cbind(trainSubjects,trainLabels,trainData)
-    mergedData = rbind(testDataComplete,trainDataComplete)
-    mergedData = tbl_df(mergedData)
-}
 
 ## 2. Extract mean/sd for each measurement
 
@@ -155,10 +150,12 @@ rm(activity_labels)
 names(mergedData) <- gsub("[^a-zA-Z0-9]","",names(mergedData))
 
 ## use gsub to replace "mean" with "Mean" and "std" with "Std" to maintain
-## camel case
+## camel case.
 names(mergedData) <- gsub("mean","Mean",names(mergedData))
 names(mergedData) <- gsub("std","Std",names(mergedData))
 
+## replace t and f with Time and Freq respectively, so they're slightly more
+## obvious.
 names(mergedData) <- gsub("^t","Time",names(mergedData))
 names(mergedData) <- gsub("^f","Freq",names(mergedData))
 
@@ -180,6 +177,7 @@ rm(fileName)
 rm(features)
 
 ## Free up some memory by deleting all the variables we don't need anymore
+## Feel free to comment these out if you want to see the intermediate steps
 rm(testSubjects,testLabels,testData)
 rm(trainSubjects,trainLabels,trainData)
 rm(testDataComplete,trainDataComplete)
