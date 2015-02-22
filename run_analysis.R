@@ -17,7 +17,7 @@ downloadAndUnzipData <- function(fileURL,zipFilePath,unzippedFolderName) {
 ## Convenience function to change directories.  relativePath must be relative to
 ## the current working directory.
 changeDirectory <- function(relativePath = "..") {
-    ## Use chdir() to go to the previous directory
+    ## Use changeDirectory() to go to the previous directory
     setwd(paste(getwd(),relativePath,sep="/"))
 }
 
