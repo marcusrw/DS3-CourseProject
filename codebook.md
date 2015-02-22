@@ -2,7 +2,7 @@
 
 ## Summary
 
-This dataset contains summary data for the dataset located [here]("https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip" "Title").
+This dataset contains summary data for the dataset located [here](https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip).
 
 Each of the features of this dataset is labelled with a number of indicators, which are summarized in the following list.  A description of each variable follows.
 
@@ -19,6 +19,9 @@ Each of the features of this dataset is labelled with a number of indicators, wh
 --------------------------------------------------------------------------------
 
 ## Detail
+
+Each column, except for Activity and Subject, describes the mean of the indicated measure,
+taken from the raw dataset, grouped by subject and activity.
 
 --------------------------------------------------------------------------------
 * Activity: The activity being performed while data was recorded.  There are six levels
