@@ -19,71 +19,78 @@ Each of the features of this dataset is labelled with a number of indicators, wh
 ## Detail
 
 --------------------------------------------------------------------------------
-Activity
-Subject
-TimeBodyAccMeanX
-TimeBodyAccMeanY
-TimeBodyAccMeanZ
-TimeGravityAccMeanX
-TimeGravityAccMeanY
-TimeGravityAccMeanZ
-TimeBodyAccJerkMeanX
-TimeBodyAccJerkMeanY
-TimeBodyAccJerkMeanZ
-TimeBodyGyroMeanX
-TimeBodyGyroMeanY
-TimeBodyGyroMeanZ
-TimeBodyGyroJerkMeanX
-TimeBodyGyroJerkMeanY
-TimeBodyGyroJerkMeanZ
-TimeBodyAccMagMean
-TimeGravityAccMagMean
-TimeBodyAccJerkMagMean
-TimeBodyGyroMagMean
-TimeBodyGyroJerkMagMean
-FreqBodyAccMeanX
-FreqBodyAccMeanY
-FreqBodyAccMeanZ
-FreqBodyAccJerkMeanX
-FreqBodyAccJerkMeanY
-FreqBodyAccJerkMeanZ
-FreqBodyGyroMeanX
-FreqBodyGyroMeanY
-FreqBodyGyroMeanZ
-FreqBodyAccMagMean
-FreqBodyAccJerkMagMean
-FreqBodyGyroMagMean
-FreqBodyGyroJerkMagMean
-TimeBodyAccStdX
-TimeBodyAccStdY
-TimeBodyAccStdZ
-TimeGravityAccStdX
-TimeGravityAccStdY
-TimeGravityAccStdZ
-TimeBodyAccJerkStdX
-TimeBodyAccJerkStdY
-TimeBodyAccJerkStdZ
-TimeBodyGyroStdX
-TimeBodyGyroStdY
-TimeBodyGyroStdZ
-TimeBodyGyroJerkStdX
-TimeBodyGyroJerkStdY
-TimeBodyGyroJerkStdZ
-TimeBodyAccMagStd
-TimeGravityAccMagStd
-TimeBodyAccJerkMagStd
-TimeBodyGyroMagStd
-TimeBodyGyroJerkMagStd
-FreqBodyAccStdX
-FreqBodyAccStdY
-FreqBodyAccStdZ
-FreqBodyAccJerkStdX
-FreqBodyAccJerkStdY
-FreqBodyAccJerkStdZ
-FreqBodyGyroStdX
-FreqBodyGyroStdY
-FreqBodyGyroStdZ
-FreqBodyAccMagStd
-FreqBodyAccJerkMagStd
-FreqBodyGyroMagStd
-FreqBodyGyroJerkMagStd
+* Activity - The activity being performed while data was recorded.  There are six levels
+    - Laying
+    - Sitting
+    - Standing
+    - Walking
+    - Walking down stairs
+    - Walking up stairs
+* Subject
+* TimeBodyAccMeanX
+* TimeBodyAccMeanY
+* TimeBodyAccMeanZ
+* TimeGravityAccMeanX
+* TimeGravityAccMeanY
+* TimeGravityAccMeanZ
+* TimeBodyAccJerkMeanX
+* TimeBodyAccJerkMeanY
+* TimeBodyAccJerkMeanZ
+* TimeBodyGyroMeanX
+* TimeBodyGyroMeanY
+* TimeBodyGyroMeanZ
+* TimeBodyGyroJerkMeanX
+* TimeBodyGyroJerkMeanY
+* TimeBodyGyroJerkMeanZ
+* TimeBodyAccMagMean
+* TimeGravityAccMagMean
+* TimeBodyAccJerkMagMean
+* TimeBodyGyroMagMean
+* TimeBodyGyroJerkMagMean
+* FreqBodyAccMeanX
+* FreqBodyAccMeanY
+* FreqBodyAccMeanZ
+* FreqBodyAccJerkMeanX
+* FreqBodyAccJerkMeanY
+* FreqBodyAccJerkMeanZ
+* FreqBodyGyroMeanX
+* FreqBodyGyroMeanY
+* FreqBodyGyroMeanZ
+* FreqBodyAccMagMean
+* FreqBodyAccJerkMagMean
+* FreqBodyGyroMagMean
+* FreqBodyGyroJerkMagMean
+* TimeBodyAccStdX
+* TimeBodyAccStdY
+* TimeBodyAccStdZ
+* TimeGravityAccStdX
+* TimeGravityAccStdY
+* TimeGravityAccStdZ
+* TimeBodyAccJerkStdX
+* TimeBodyAccJerkStdY
+* TimeBodyAccJerkStdZ
+* TimeBodyGyroStdX
+* TimeBodyGyroStdY
+* TimeBodyGyroStdZ
+* TimeBodyGyroJerkStdX
+* TimeBodyGyroJerkStdY
+* TimeBodyGyroJerkStdZ
+* TimeBodyAccMagStd
+* TimeGravityAccMagStd
+* TimeBodyAccJerkMagStd
+* TimeBodyGyroMagStd
+* TimeBodyGyroJerkMagStd
+* FreqBodyAccStdX
+* FreqBodyAccStdY
+* FreqBodyAccStdZ
+* FreqBodyAccJerkStdX
+* FreqBodyAccJerkStdY
+* FreqBodyAccJerkStdZ
+* FreqBodyGyroStdX
+* FreqBodyGyroStdY
+* FreqBodyGyroStdZ
+* FreqBodyAccMagStd
+* FreqBodyAccJerkMagStd
+* FreqBodyGyroMagStd
+* FreqBodyGyroJerkMagStd
+--------------------------------------------------------------------------------
