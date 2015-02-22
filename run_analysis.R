@@ -66,8 +66,8 @@ if (!exists("testData")){
 
     ## Read in the data, activity labels, and subject numbers
     testData = readDataFileIntoTable("X_test.txt",features)
-    testLabels = readDataFileIntoTable("y_test.txt","activityNumber")
-    testSubjects = readDataFileIntoTable("subject_test.txt","subject")
+    testLabels = readDataFileIntoTable("y_test.txt","ActivityNumber")
+    testSubjects = readDataFileIntoTable("subject_test.txt","Subject")
 
     ## Move back to the previous directory
     changeDirectory("..")
@@ -82,8 +82,8 @@ if (!exists("trainData")){
 
     ## Read in the data, activity labels, and subject numbers
     trainData = readDataFileIntoTable("X_train.txt",features)
-    trainLabels = readDataFileIntoTable("y_train.txt","activityNumber")
-    trainSubjects = readDataFileIntoTable("subject_train.txt","subject")
+    trainLabels = readDataFileIntoTable("y_train.txt","ActivityNumber")
+    trainSubjects = readDataFileIntoTable("subject_train.txt","Subject")
 
     ## Move back to the previous directory
     changeDirectory("..")
@@ -121,12 +121,12 @@ if (!exists("mergedData")) {
 ## 2. Extract mean/sd for each measurement
 
 ## Now we can use select to find every column that contains "mean" or "std",
-## and extract those columns, as well as the "subject" and "activityNumber"
+## and extract those columns, as well as the "subject" and "ActivityNumber"
 ## we added before
 
 mergedData = select(mergedData,
-                    contains("subject"),
-                    contains("activityNumber"),
+                    contains("Subject"),
+                    contains("ActivityNumber"),
                     contains("-mean()"),
                     contains("-std()"))
 
@@ -135,14 +135,14 @@ mergedData = select(mergedData,
 ## We can replace the activity numbers in column 2 with activity names using
 ## the descriptions provided in activity_labels.txt.
 activity_labels = readDataFileIntoTable("activity_labels.txt",
-                                        c("activityNumber","activity"))
+                                        c("ActivityNumber","Activity"))
 
 ## We can add the activity_descriptions to our dataset by merging in the activity labels
-mergedData = merge(activity_labels,mergedData,by.x="activityNumber",by.y="activityNumber")
+mergedData = merge(activity_labels,mergedData,by.x="ActivityNumber",by.y="ActivityNumber")
 mergedData = tbl_df(mergedData)
 
 ## And since we don't need the number anymore, we can delete it
-mergedData = select(mergedData,-activityNumber)
+mergedData = select(mergedData,-ActivityNumber)
 rm(activity_labels)
 
 ## 4. Label the data set
@@ -159,10 +159,17 @@ names(mergedData) <- gsub("[^a-zA-Z0-9]","",names(mergedData))
 names(mergedData) <- gsub("mean","Mean",names(mergedData))
 names(mergedData) <- gsub("std","Std",names(mergedData))
 
+names(mergedData) <- gsub("^t","Time",names(mergedData))
+names(mergedData) <- gsub("^f","Freq",names(mergedData))
+
+## Remove some typos
+names(mergedData) <- gsub("BodyBody","Body",names(mergedData))
+
+
 
 ## 5. Average over each activity and each subject
 dataSummary <- mergedData %>%
-    group_by(subject,activity) %>%
+    group_by(Subject,Activity) %>%
     summarise_each(funs(mean))
 
 ## Save the summary data to a file called tidySummary.txt
