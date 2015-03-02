@@ -7,7 +7,11 @@ downloadAndUnzipData <- function(fileURL,zipFilePath,unzippedFolderName) {
         if (!file.exists(zipFilePath)){
             print("Downloading Data")
             download.file(fileURL,destfile = zipFilePath,method = "curl")
-            print(paste("zipfile downloaded to ",paste(this.directory,zipFilePath,sep="/"),sep = ""))
+            
+            this.directory = getwd()
+            print(paste("zipfile downloaded to ",
+                        paste(this.directory,zipFilePath,sep="/"),
+                        sep = ""))
         }
         print("Unzipping zipfile")
         unzip(zipFilePath)
